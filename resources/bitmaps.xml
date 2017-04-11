@@ -1,0 +1,8 @@
+<resources>
+    <bitmap id="LauncherIcon" filename="images/icon.png" />
+    <bitmap id="hrIcon" filename="images/hr.png" />
+    <bitmap id="timeIcon" filename="images/time.png" />
+    <bitmap id="speedIcon" filename="images/speed.png" />
+    <bitmap id="cadenceIcon" filename="images/cadence.png" />
+    <bitmap id="distanceIcon" filename="images/distance.png" />
+</resources>
