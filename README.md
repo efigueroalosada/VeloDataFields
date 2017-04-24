@@ -10,7 +10,13 @@ https://developer.garmin.com/connect-iq/programmers-guide/getting-started/
 
 ## Deployment
 
-Connect watch with USB and copy the VeloDataFields.prg file in GARMIN/APPS folder on your device.
+Connect the watch to USB port, and copy the VeloDataFields.prg file to GARMIN/APPS folder.
+
+Go for a ride ...
+
+![VeloDataFields](https://cloud.githubusercontent.com/assets/12190602/25353281/adcc626a-28fc-11e7-8930-f6e50415ed9e.png)
+
+
 
 ## Built With
 
@@ -23,5 +29,5 @@ Connect watch with USB and copy the VeloDataFields.prg file in GARMIN/APPS folde
 
 ## License
 
-This project is licensed under the MIT License - see the [license.txt](license.txt) file for details
+This project is licensed under the MIT License - see the [License.txt](License.txt) file for details
 
