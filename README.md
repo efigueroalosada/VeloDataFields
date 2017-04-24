@@ -12,7 +12,7 @@ https://developer.garmin.com/connect-iq/programmers-guide/getting-started/
 
 Connect the watch to USB port, and copy the VeloDataFields.prg file to GARMIN/APPS folder.
 
-<img src="https://cloud.githubusercontent.com/assets/12190602/25353281/adcc626a-28fc-11e7-8930-f6e50415ed9e.png" alt="VeloDataFields" width="622" height="469">
+<img src="https://cloud.githubusercontent.com/assets/12190602/25353281/adcc626a-28fc-11e7-8930-f6e50415ed9e.png" alt="VeloDataFields" width="500" height="375">
 
 ## Built With
 
