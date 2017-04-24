@@ -16,7 +16,7 @@ Connect the watch to USB port, and copy the VeloDataFields.prg file to GARMIN/AP
 
 ## Built With
 
-* [Connect IQ](https://developer.garmin.com/connect-iq) 
+* [Connect IQ SDK](https://developer.garmin.com/connect-iq) 
 * [Monkey C](https://developer.garmin.com/connect-iq/programmers-guide/monkey-c/) 
 
 ## Authors
