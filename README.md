@@ -23,5 +23,5 @@ Connect watch with USB and copy the VeloDataFields.prg file in GARMIN/APPS folde
 
 ## License
 
-This project is licensed under the MIT License - see the [License.txt](License.txt) file for details
+This project is licensed under the MIT License - see the [license.txt](license.txt) file for details
 
