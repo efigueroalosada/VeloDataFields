@@ -3,6 +3,7 @@ using Toybox.Graphics as Gfx;
 using Toybox.System;
 using Toybox.Time;
 using Toybox.Time.Gregorian;
+using Toybox.UserProfile;
 
 class VeloDataFieldsView extends Ui.DataField {
 
@@ -23,8 +24,7 @@ class VeloDataFieldsView extends Ui.DataField {
     hidden var speedIcon;
     hidden var cadenceIcon;
     hidden var distanceIcon;
-    hidden var x0, x1, x2, x3, x4, x5;
-    hidden var y0, y1, y2, y3;
+    hidden var altitudeIcon;
     hidden var gregorianLapTime;
     hidden var dayTime;
     hidden var avgSpeed;
@@ -44,22 +44,19 @@ class VeloDataFieldsView extends Ui.DataField {
 		altitude = 0.0f;
 		vam = 0.0f;
 		avgSpeed = 0.0f;
-		x0 = 18;
-		x1 = 55;
-		x2 = 85;
-		x3 = 125;
-		x4 = 157;
-		x5 = 203;
-		y0 = 2;
-		y1 = 47;
-		y2 = 75;
-		y3 = 122;
+		
+		hrIcon = new Ui.Bitmap({:rezId=>Rez.Drawables.hrIcon,:locX=>2,:locY=>50-14});
+		cadenceIcon = new Ui.Bitmap({:rezId=>Rez.Drawables.cadenceIcon,:locX=>65+2,:locY=>50-14});	
+		speedIcon = new Ui.Bitmap({:rezId=>Rez.Drawables.speedIcon,:locX=>130+3,:locY=>50-19});	
+		timeIcon = new Ui.Bitmap({:rezId=>Rez.Drawables.timeIcon,:locX=>2,:locY=>100-16});	
+		distanceIcon = new Ui.Bitmap({:rezId=>Rez.Drawables.distanceIcon,:locX=>130+3,:locY=>100-17});
+		altitudeIcon = new Ui.Bitmap({:rezId=>Rez.Drawables.altitudeIcon,:locX=>2,:locY=>148-14});	
 		
 		var options = { :seconds => 0};
         gregorianLapTime = Time.Gregorian.duration(options);	     	
     }
 
-    // The given info object contains all the current workout
+    // The given info object contains all the current workout.
     // information. Calculate a value and save it locally in this method.
     function compute(info) {
         // See Activity.Info in the documentation for available information.
@@ -117,9 +114,9 @@ class VeloDataFieldsView extends Ui.DataField {
         }
         if (info has :averageSpeed) {
         	if (info.averageSpeed != null) {
-        		avgSpeed = "Avg: " + (info.averageSpeed * 3.6).format("%.1f");
+        		avgSpeed = (info.averageSpeed * 3.6).format("%.1f");
         	} else {
-        		avgSpeed = "Avg: " + (0.0f).format("%.1f");
+        		avgSpeed = (0.0f).format("%.1f");
         	}
         }
         var today = System.getClockTime();
@@ -136,46 +133,55 @@ class VeloDataFieldsView extends Ui.DataField {
         dc.setColor(Gfx.COLOR_DK_GRAY, Gfx.COLOR_WHITE);
         
         // Horizontal
-        dc.drawLine(0, 65, 205, 65);
-        dc.drawLine(0, 128, 205, 128);
+        dc.drawLine(0, 50, 205, 50);
+        dc.drawLine(0, 100, 205, 100);
         
         // Vertical
-        dc.drawLine(65, 0, 65, 65);
-        dc.drawLine(135, 0, 135, 128);
+        dc.drawLine(65, 0, 65, 50);
+        dc.drawLine(65, 100, 65, 148);
+        dc.drawLine(130, 0, 130, 148);
         
         dc.setColor(Gfx.COLOR_BLACK, Gfx.COLOR_WHITE);
         
         // Heart Rate
-        dc.drawText(32, 2, Gfx.FONT_SMALL, "BPM", Gfx.TEXT_JUSTIFY_CENTER);
-        dc.drawText(65 - 2, 20, Gfx.FONT_NUMBER_HOT, hr, Gfx.TEXT_JUSTIFY_RIGHT);
+        hrIcon.draw(dc);
+        dc.drawText(65 - 1, 6, Gfx.FONT_NUMBER_HOT, hr, Gfx.TEXT_JUSTIFY_RIGHT);
         
         // Candence
-        dc.drawText(102, 2, Gfx.FONT_SMALL, "RPM", Gfx.TEXT_JUSTIFY_CENTER);
-        dc.drawText(135 - 2, 20, Gfx.FONT_NUMBER_HOT, cadence, Gfx.TEXT_JUSTIFY_RIGHT);
+        cadenceIcon.draw(dc);
+		dc.drawText(130 - 2, 6, Gfx.FONT_NUMBER_HOT, cadence, Gfx.TEXT_JUSTIFY_RIGHT);
         
         // Speed
-        dc.drawText(170 + 2, 2, Gfx.FONT_SMALL, "Km/h", Gfx.TEXT_JUSTIFY_CENTER);
-        dc.drawText(205 - 2, 20, Gfx.FONT_NUMBER_HOT, speed.format("%.1f"), Gfx.TEXT_JUSTIFY_RIGHT);
+        //dc.drawText(170 + 2, 2, Gfx.FONT_SMALL, "Km/h", Gfx.TEXT_JUSTIFY_CENTER);
+        speedIcon.draw(dc);
+        dc.drawText(205 - 2, 6, Gfx.FONT_NUMBER_HOT, speed.format("%.1f"), Gfx.TEXT_JUSTIFY_RIGHT);
         
         // Time        
-        dc.drawText(102, 65 + 2, Gfx.FONT_SMALL, "Time", Gfx.TEXT_JUSTIFY_CENTER);
-        dc.drawText(135 - 2, 83, Gfx.FONT_NUMBER_HOT, toHMS(lapTime), Gfx.TEXT_JUSTIFY_RIGHT);
+        //dc.drawText(102, 65 + 2, Gfx.FONT_SMALL, "Time", Gfx.TEXT_JUSTIFY_CENTER);
+        timeIcon.draw(dc);
+        dc.drawText(130 - 2, 50 + 6, Gfx.FONT_NUMBER_HOT, toHMS(lapTime), Gfx.TEXT_JUSTIFY_RIGHT);
         
         // Distance
-        dc.drawText(170 + 2, 65 + 2, Gfx.FONT_SMALL, "Km", Gfx.TEXT_JUSTIFY_CENTER);
-        dc.drawText(205 -2, 83, Gfx.FONT_NUMBER_HOT, lapDistance.format("%.1f"), Gfx.TEXT_JUSTIFY_RIGHT);        
+        //dc.drawText(170 + 2, 65 + 2, Gfx.FONT_SMALL, "Km", Gfx.TEXT_JUSTIFY_CENTER);
+        distanceIcon.draw(dc);
+        dc.drawText(205 -2, 50 + 6, Gfx.FONT_NUMBER_HOT, lapDistance.format("%.1f"), Gfx.TEXT_JUSTIFY_RIGHT);        
         
         // Lap Number
-        dc.drawText(2, 65 + 2, Gfx.FONT_SMALL, lapNumber, Gfx.TEXT_JUSTIFY_LEFT);
+        dc.drawText(2, 50 + 6, Gfx.FONT_NUMBER_MILD, lapNumber, Gfx.TEXT_JUSTIFY_LEFT);
         
         // Avg Speed
-        dc.drawText(135 + 25, 130 + 2, Gfx.FONT_SMALL, avgSpeed, Gfx.TEXT_JUSTIFY_RIGHT);
+        dc.drawText(130 - 2, 124 + 2, Gfx.FONT_NUMBER_MILD, avgSpeed, Gfx.TEXT_JUSTIFY_RIGHT);
         
         // Altitude
-        dc.drawText(2, 130 + 2, Gfx.FONT_SMALL, "Alt: "+altitude+" - "+vam, Gfx.TEXT_JUSTIFY_LEFT);
+        dc.drawText(65 - 2, 100 + 2, Gfx.FONT_NUMBER_MILD, altitude, Gfx.TEXT_JUSTIFY_RIGHT);
+        
+        // VAM
+        dc.drawText(65 - 2, 124 + 2, Gfx.FONT_NUMBER_MILD, vam, Gfx.TEXT_JUSTIFY_RIGHT);
+        altitudeIcon.draw(dc);
         
         // Day Time
-        dc.drawText(205 - 2, 130 + 2, Gfx.FONT_SMALL, dayTime, Gfx.TEXT_JUSTIFY_RIGHT);
+        dc.drawText(205 - 2, 124 + 2, Gfx.FONT_NUMBER_MILD, dayTime, Gfx.TEXT_JUSTIFY_RIGHT);
+		
     }
     
     // This is called each time a lap is created.
